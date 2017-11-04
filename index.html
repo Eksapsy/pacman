@@ -261,7 +261,7 @@
 
         eatDot: function (pacman, dot) {
             dot.reset();
-            dot.kill();
+            dot.loadTexture('dot');
 
             if(!munch.isPlaying) {
                 munch.play();
