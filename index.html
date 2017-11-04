@@ -260,7 +260,6 @@
         },
 
         eatDot: function (pacman, dot) {
-            console.log('eating, dot:', dot);
             dot.kill();
 
             if(!munch.isPlaying) {
@@ -275,6 +274,7 @@
             // Check Bonus Collision
             const isBonus = dot.z === bonusIndex;
             if (isBonus) {
+                console.log('Ate Bonus!');
                 scoreCount = scoreCount + 25;
                 this.generateBonus();
             }
@@ -305,7 +305,6 @@
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
-            this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
