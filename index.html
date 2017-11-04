@@ -141,7 +141,6 @@
 
             // Debug
             console.log(this.dots);
-
             // Bonus
             this.generateBonus();
         },
@@ -274,7 +273,8 @@
             }
 
             // Check Bonus Collision
-            if (dot.isBonus) {
+            const isBonus = dot.z === bonusIndex;
+            if (isBonus) {
                 scoreCount = scoreCount + 25;
                 this.generateBonus();
             }
@@ -288,8 +288,6 @@
         generateBonus: function() {
             let totalDots = this.dots.children.length;
             bonusIndex = Math.random() % totalDots;
-            
-            this.dots.children[bonusIndex].isBonus = true;
 
             this.map.createFromTiles(7, this.safetile, 'bonus', this.layer, this.dots.children[bonusIndex]);
         },
