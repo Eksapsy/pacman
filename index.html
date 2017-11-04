@@ -18,6 +18,9 @@
 
     var game = new Phaser.Game(1024, 512, Phaser.AUTO);
 
+    // Sounds
+    var munch;
+
     var Pacman = function (game) {
 
         this.map = null;
@@ -67,6 +70,12 @@
             this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
             this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
 
+            // Sounds
+            // (C)opyrights 2017 Classicgaming.cc
+            // Loading Sounds
+            this.load.audio('munch', '.assets/pacman_chomp.wav');
+            game.sound.setDecodedCallback([ munch ], start, this);
+
             //  Needless to say, graphics (C)opyright Namco
 
         },
@@ -101,7 +110,6 @@
 
             this.pacman.play('munch');
             this.move(Phaser.LEFT);
-
         },
 
         checkKeys: function () {
@@ -221,6 +229,10 @@
         eatDot: function (pacman, dot) {
 
             dot.kill();
+
+            if(!munch.isPlaying()) {
+                this.munch.play();
+            }
 
             if (this.dots.total === 0)
             {
