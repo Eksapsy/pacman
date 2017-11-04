@@ -132,7 +132,7 @@
             intro.play();
 
             // Time Loop
-            time.events.loop(Phaser.Timer.SECOND, this.updateTime, this);
+            this.time.events.loop(Phaser.Timer.SECOND, this.updateTime, this);
         },
 
         checkKeys: function () {
