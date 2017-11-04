@@ -20,6 +20,7 @@
 
     // Sounds
     var munch;
+    var intro;
 
     var Pacman = function (game) {
 
@@ -74,6 +75,7 @@
             // (C)opyrights 2017 Classicgaming.cc
             // Loading Sounds
             this.load.audio('munch', 'assets/pacman_chomp.wav');
+            this.load.audio('intro', 'assets/pacman_beginning.wav');
 
             //  Needless to say, graphics (C)opyright Namco
 
@@ -110,8 +112,10 @@
             this.pacman.play('munch');
             this.move(Phaser.LEFT);
 
-            munch = this.add.audio('munch', 0.5);
+            munch = this.add.audio('munch', 0.3);
+            intro = this.add.audio('intro', 0.5);
             // this.sound.setDecodedCallback([ munch ], this.init, this);
+            intro.play();
         },
 
         checkKeys: function () {
