@@ -32,6 +32,7 @@
     var scoreCount = 0;
     var timeCount = maxTime;
     var bonusCount = bonusMaxTime;
+    var bonusIndex = -1;
 
     var Pacman = function (game) {
 
@@ -140,6 +141,9 @@
 
             // Debug
             console.log(this.dots);
+
+            // Bonus
+            this.generateBonus();
         },
 
         checkKeys: function () {
@@ -268,12 +272,26 @@
             {
                 this.dots.callAll('revive');
             }
-            scoreCount = scoreCount + 1;
+
+            // Check Bonus Collision
+            if (dot.isBonus) {
+                scoreCount = scoreCount + 25;
+                this.generateBonus();
+            }
+            else {
+                scoreCount++;
+            }
+            
             scoreText.text = 'Score:' + scoreCount;
         },
 
         generateBonus: function() {
+            let totalDots = this.dots.children.length;
+            bonusIndex = Math.random() % totalDots;
+            
+            this.dots[bonusIndex].isBonus = true;
 
+            this.map.createFromTiles(7, this.safetile, 'bonus', this.layer, this.dots[bonusIndex]);
         },
 
         updateTime: function () {
@@ -284,17 +302,13 @@
                 scoreCount = 0;
                 this.dots.callAll('revive');
             }
-            if (bonusCount === 0) {
-                bonusCount = bonusMaxTime;
-                this.generateBonus();
-            }
         },
 
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
-            this.physics.arcade.overlap(this.pacman, this.bonus, this.eatBonus, null, this);
+            this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
