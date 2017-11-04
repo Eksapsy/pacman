@@ -27,8 +27,9 @@
     var timeText;
 
     // Game Variables
+    const maxTime = 127;
     var scoreCount = 0;
-    var timeCount = 256;
+    var timeCount = maxTime;
 
     var Pacman = function (game) {
 
@@ -122,7 +123,7 @@
             var style = { font: "36px Arial", fill: "#ffffff", align: "left" };
             scoreText = this.add.text(this.world.centerX, 50, String('Score:' + scoreCount), style);
             scoreText.anchor.set(0.0);
-            timeText = this.add.text(0, 50, '0', style);
+            timeText = this.add.text(0, 50, String(maxTime), style);
             timeText.anchor.set(0.0);
 
             // Sounds
@@ -268,6 +269,10 @@
         updateTime: function () {
             timeCount--;
             timeText.text = String(timeCount);
+            if (timeCount === 0) {
+                timeCount = maxTime;
+                scoreCount = 0;
+            }
         },
 
         update: function () {
@@ -289,11 +294,6 @@
             if (this.turning !== Phaser.NONE)
             {
                 this.turn();
-            }
-
-            // Time Control
-            if (timeCount == 0) {
-                window.location.reload();
             }
         } 
 
