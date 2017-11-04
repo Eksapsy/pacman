@@ -28,8 +28,10 @@
 
     // Game Variables
     const maxTime = 127;
+    const bonusMaxTime = 10;
     var scoreCount = 0;
     var timeCount = maxTime;
+    var bonusCount = bonusMaxTime;
 
     var Pacman = function (game) {
 
@@ -74,6 +76,7 @@
             this.load.baseURL = 'https://eksapsy.github.io/pacman/';
             this.load.crossOrigin = 'anonymous';
 
+            this.load.image('bonus', 'assets/bonusCoin.png');
             this.load.image('dot', 'assets/fruit.png');
             this.load.image('tiles', 'assets/pacman-tiles.png');
             this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
@@ -134,6 +137,9 @@
 
             // Time Loop
             this.time.events.loop(Phaser.Timer.SECOND, this.updateTime, this);
+
+            // Debug
+            console.log(this.dots);
         },
 
         checkKeys: function () {
@@ -266,12 +272,21 @@
             scoreText.text = 'Score:' + scoreCount;
         },
 
+        generateBonus: function() {
+
+        },
+
         updateTime: function () {
             timeCount--;
             timeText.text = String(timeCount);
             if (timeCount === 0) {
                 timeCount = maxTime;
                 scoreCount = 0;
+                this.dots.callAll('revive');
+            }
+            if (bonusCount === 0) {
+                bonusCount = bonusMaxTime;
+                this.generateBonus();
             }
         },
 
@@ -279,6 +294,7 @@
           
             this.physics.arcade.collide(this.pacman, this.layer);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
+            this.physics.arcade.overlap(this.pacman, this.bonus, this.eatBonus, null, this);
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
