@@ -65,8 +65,9 @@
             this.physics.startSystem(Phaser.Physics.ARCADE);
             
             // Game Texts
-            var style = { font: "17px Arial", fill: "#ffffff", align: "left" };
-            scoreText = this.add.text(this.world.centerX, 400, String('Score:' + scoreCount), style)
+            var style = { font: "42px Arial", fill: "#ffffff", align: "left" };
+            scoreText = this.add.text(this.world.centerX, 0, String('Score:' + scoreCount), style);
+            scoreText.anchor.set(0.0);
         },
 
         preload: function () {
@@ -109,7 +110,7 @@
             this.map.setCollisionByExclusion([this.safetile], true, this.layer);
 
             //  Position Pacman at grid location 14x17 (the +8 accounts for his anchor)
-            this.pacman = this.add.sprite((14 * 12) + 8, (17 * 16) + 8, 'pacman', 0);
+            this.pacman = this.add.sprite((14 * 10) + 8, (17 * 16) + 8, 'pacman', 0);
             this.pacman.anchor.set(0.5);
             this.pacman.animations.add('munch', [0, 1, 2, 1], 20, true);
 
