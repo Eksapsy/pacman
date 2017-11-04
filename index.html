@@ -272,7 +272,7 @@
             }
 
             // Check Bonus Collision
-            const isBonus = dot.z === bonusIndex;
+            const isBonus = this.dots.getChildIndex(dot) === bonusIndex;
             if (isBonus) {
                 console.log('Ate Bonus!');
                 scoreCount = scoreCount + 25;
