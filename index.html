@@ -291,6 +291,7 @@
             console.log(`Generated Bonus on #${bonusIndex} dot`);
 
             this.dots.children[bonusIndex].body.sprite.key = 'bonus';
+            console.log('dot\'s sprite key:', this.dots.children[bonusIndex].body.sprite.key);
         },
 
         updateTime: function () {
