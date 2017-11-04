@@ -263,6 +263,11 @@
             scoreText.text = 'Score:' + scoreCount;
         },
 
+        updateTime: function () {
+            timeCount--;
+            timeText.text = String(timeCount);
+        },
+        
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
@@ -288,9 +293,6 @@
             if (timeCount == 0) {
                 window.location.reload();
             }
-            timeCount = timeCount - 1;
-
-            timeText.text = String(timeCount);
         } 
 
     };
