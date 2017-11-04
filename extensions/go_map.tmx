@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="32" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="pacman-tiles" tilewidth="16" tileheight="16" tilecount="48">
+  <image source="../assets/pacman-tiles.png" width="256" height="48"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="64" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztl9tShDAMhrPO7Ep12dU9efb9H9MyNkOsaRqosIC5+C6aQOGH9m+yA4CdYRiG8a9ZeW4WzlrQv/HcLpw7hf6j5yFwCLF7zzZQK2I4fvGcPa/hGW9h/F44b2pMY5wOjX5HYlWIVSTmFDGXed6mcN7UmMY4HRr9F/Itn2aif0/+9aOgQ6OfY+r6/2L/n+B7b1JwL3HfV4rh+AN4H/4snDceN2fXGloviHUgz4L+OZ8Jp6At94+7gvqpv1I4/71GvvF6jcdLcOsU11cFP8+TeH1y+eZ93Eh5B63H7xNakJR+aX1VIHsN5ul89J6h81R/jpR+zi9q+K2fqzWmpF/yv7OgP3dOxWdtPaK+LvqH8D9u/buF6ef6P+pv9FxG76PvR+strLnGymv9r2//F2uXapZr5C/Q1rgSffu/OcH5H/p03/6vtE8d8j5NjYva+vZ/pXX6UPel9MRelrs+t/+nSq6/7LL/uf5v6qT6uZSWrv2fYRjGUvkCBiJg0A==
+  </data>
+ </layer>
+</map>
