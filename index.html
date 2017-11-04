@@ -289,9 +289,9 @@
             let totalDots = this.dots.children.length;
             bonusIndex = Math.random() % totalDots;
             
-            this.dots[bonusIndex].isBonus = true;
+            this.dots.children[bonusIndex].isBonus = true;
 
-            this.map.createFromTiles(7, this.safetile, 'bonus', this.layer, this.dots[bonusIndex]);
+            this.map.createFromTiles(7, this.safetile, 'bonus', this.layer, this.dots.children[bonusIndex]);
         },
 
         updateTime: function () {
