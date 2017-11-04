@@ -290,7 +290,7 @@
             bonusIndex = Math.floor(Math.random() * totalDots);
             console.log(`Generated Bonus on #${bonusIndex} dot`);
             console.log('before dot\'s sprite key:', this.dots.children[bonusIndex].body.sprite.key);
-            this.dots.children[bonusIndex].body.sprite.key = 'bonus';
+            this.dots.children[bonusIndex].loadTexture('bonus');
             console.log('dot\'s sprite key:', this.dots.children[bonusIndex].body.sprite.key);
         },
 
