@@ -18,6 +18,9 @@
 
     var game = new Phaser.Game(1024, 512, Phaser.AUTO);
 
+    // Constants
+    const version = '0.6.0 alpha';
+
     // Sounds
     var munch;
     var intro;
@@ -94,6 +97,7 @@
         },
 
         create: function () {
+            console.log('\x1b[36m%s\x1b[0m', `Game Version: ${version}`);
 
             this.map = this.add.tilemap('map');
             this.map.addTilesetImage('pacman-tiles', 'tiles');
