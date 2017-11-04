@@ -22,6 +22,13 @@
     var munch;
     var intro;
 
+    // Texts
+    var scoreText;
+    var timeText;
+
+    // Game Variables
+    var scoreCount = 0;
+
     var Pacman = function (game) {
 
         this.map = null;
@@ -56,7 +63,10 @@
             Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
 
             this.physics.startSystem(Phaser.Physics.ARCADE);
-
+            
+            // Game Texts
+            var style = { font: "17px Arial", fill: "#ffffff", align: "left" };
+            scoreText = this.add.text(this.world.centerX, 0, String('Score:' + scoreCount), style)
         },
 
         preload: function () {
@@ -92,7 +102,6 @@
 
             this.map.createFromTiles(7, this.safetile, 'dot', this.layer, this.dots);
 
-            //  The dots will need to be offset by 6px to put them back in the middle of the grid
             this.dots.setAll('x', 0, false, false, 1);
             this.dots.setAll('y', 0, false, false, 1);
 
@@ -243,7 +252,9 @@
             if (this.dots.total === 0)
             {
                 this.dots.callAll('revive');
+                scoreCount = 0;
             }
+            scoreCount = scoreCount + 1;
 
         },
 
