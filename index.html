@@ -27,7 +27,7 @@
     var timeText;
 
     // Game Variables
-    const maxTime = 127;
+    const maxTime = 255;
     const bonusMaxTime = 10;
     var scoreCount = 0;
     var timeCount = maxTime;
@@ -288,6 +288,7 @@
         generateBonus: function() {
             let totalDots = this.dots.children.length;
             bonusIndex = Math.random() % totalDots;
+            console.log(`Generated Bonus on #${bonusIndex} dot`);
 
             this.map.createFromTiles(7, this.safetile, 'bonus', this.layer, this.dots.children[bonusIndex]);
         },
