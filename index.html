@@ -66,7 +66,7 @@
             
             // Game Texts
             var style = { font: "17px Arial", fill: "#ffffff", align: "left" };
-            scoreText = this.add.text(this.world.centerX, 0, String('Score:' + scoreCount), style)
+            scoreText = this.add.text(this.world.centerX, 400, String('Score:' + scoreCount), style)
         },
 
         preload: function () {
@@ -255,7 +255,7 @@
                 scoreCount = 0;
             }
             scoreCount = scoreCount + 1;
-
+            scoreText.text = 'Score:' + scoreCount;
         },
 
         update: function () {
