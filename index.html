@@ -130,6 +130,9 @@
             intro = this.add.audio('intro', 0.5);
             // this.sound.setDecodedCallback([ munch ], this.init, this);
             intro.play();
+
+            // Time Loop
+            time.events.loop(Phaser.Timer.SECOND, this.updateTime, this);
         },
 
         checkKeys: function () {
