@@ -122,7 +122,7 @@
             var style = { font: "36px Arial", fill: "#ffffff", align: "left" };
             scoreText = this.add.text(this.world.centerX, 50, String('Score:' + scoreCount), style);
             scoreText.anchor.set(0.0);
-            timeText = this.add.text(0, 50, 0, style);
+            timeText = this.add.text(0, 50, '0', style);
             timeText.anchor.set(0.0);
 
             // Sounds
@@ -267,7 +267,7 @@
             timeCount--;
             timeText.text = String(timeCount);
         },
-        
+
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
