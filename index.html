@@ -290,7 +290,7 @@
             bonusIndex = Math.floor(Math.random() * totalDots);
             console.log(`Generated Bonus on #${bonusIndex} dot`);
 
-            this.map.createFromTiles(7, this.safetile, 'bonus', this.layer, this.dots.children[bonusIndex]);
+            this.dots.children[bonusIndex].body.sprite.key = 'bonus';
         },
 
         updateTime: function () {
