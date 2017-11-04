@@ -97,7 +97,7 @@
         },
 
         create: function () {
-            console.log('\x1b[36m%s\x1b[0m', `Game Version: ${version}`);
+            console.log('\x1b[36m%s\x1b[0m', 'version');
 
             this.map = this.add.tilemap('map');
             this.map.addTilesetImage('pacman-tiles', 'tiles');
@@ -143,8 +143,6 @@
             // Time Loop
             this.time.events.loop(Phaser.Timer.SECOND, this.updateTime, this);
 
-            // Debug
-            console.log(this.dots);
             // Bonus
             this.generateBonus();
         },
