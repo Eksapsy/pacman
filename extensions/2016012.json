@@ -1,0 +1,44 @@
+{ "height":32,
+ "layers":[
+        {
+         "compression":"zlib",
+         "data":"eJztl9tShDAMhrPO7Ep12dU9efb9H9MyNkOsaRqosIC5+C6aQOGH9m+yA4CdYRiG8a9ZeW4WzlrQv\/HcLpw7hf6j5yFwCLF7zzZQK2I4fvGcPa\/hGW9h\/F44b2pMY5wOjX5HYlWIVSTmFDGXed6mcN7UmMY4HRr9F\/Itn2aif0\/+9aOgQ6OfY+r6\/2L\/n+B7b1JwL3HfV4rh+AN4H\/4snDceN2fXGloviHUgz4L+OZ8Jp6At94+7gvqpv1I4\/71GvvF6jcdLcOsU11cFP8+TeH1y+eZ93Eh5B63H7xNakJR+aX1VIHsN5ul89J6h81R\/jpR+zi9q+K2fqzWmpF\/yv7OgP3dOxWdtPaK+LvqH8D9u\/buF6ef6P+pv9FxG76PvR+strLnGymv9r2\/\/F2uXapZr5C\/Q1rgSffu\/OcH5H\/p03\/6vtE8d8j5NjYva+vZ\/pXX6UPel9MRelrs+t\/+nSq6\/7LL\/uf5v6qT6uZSWrv2fYRjGUvkCBiJg0A==",
+         "encoding":"base64",
+         "height":32,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":64,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "properties":
+    {
+
+    },
+ "renderorder":"right-down",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"..\/assets\/pacman-tiles.png",
+         "imageheight":48,
+         "imagewidth":256,
+         "margin":0,
+         "name":"pacman-tiles",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tilecount":48,
+         "tileheight":16,
+         "tilewidth":16
+        }],
+ "tilewidth":16,
+ "version":1,
+ "width":64
+}
