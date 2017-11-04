@@ -74,7 +74,6 @@
             // (C)opyrights 2017 Classicgaming.cc
             // Loading Sounds
             this.load.audio('munch', 'assets/pacman_chomp.wav');
-            this.sound.setDecodedCallback([ munch ], this.init, this);
 
             //  Needless to say, graphics (C)opyright Namco
 
@@ -110,6 +109,9 @@
 
             this.pacman.play('munch');
             this.move(Phaser.LEFT);
+
+            munch = this.add.audio('munch');
+            this.sound.setDecodedCallback([ munch ], this.init, this);
         },
 
         checkKeys: function () {
