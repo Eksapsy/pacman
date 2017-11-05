@@ -377,8 +377,9 @@
             this.pacman.y = pacman_init_y;
             // Placing Enemies
             for (var i = 0; i < 4; i++) {
-                this.enemies.children[i].x = 400+16*i;
-                this.enemies.children[i].y = 140 + this.rnd.integerInRange(0,15);
+                const tile = this.snapPointToMap(400+16*i, 140 + this.rnd.integerInRange(0,15));
+                this.enemies.children[i].x = tile.x;
+                this.enemies.children[i].y = tile.y;
             }
         },
 
