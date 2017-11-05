@@ -412,7 +412,7 @@
         },
 
         update: function () {
-            if (!begin_time > 0) {
+            if (!begin_time >= 0) {
                 this.checkKeys();
                 
                 if (this.turning !== Phaser.NONE)
