@@ -293,7 +293,7 @@
             const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
             const tile = this.map.getTile(marked_x, marked_y, this.dots);
 
-            return tile.Point;
+            return tile;
         },
 
         eatDot: function (pacman, dot) {
