@@ -145,21 +145,7 @@
             for (var i = 0; i < 4; i++) {
                 // var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(0,15), 'enemies', i);
                 var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(50,200), 'enemies', i);
-                var directionInt = this.rnd.integerInRange(0, 3);
-                switch(directionInt) {
-                    case 0: 
-                        this.move(enemy, Phaser.LEFT, false);
-                        break;
-                    case 1:
-                        this.move(enemy, Phaser.RIGHT, false);
-                        break;
-                    case 2: 
-                        this.move(enemy, Phaser.UP, false);
-                        break;
-                    case 3: 
-                        this.move(enemy, Phaser.DOWN, false);
-                        break;
-                }
+                this.move(enemy, this.randomDirection());
 
                 enemy.body.setSize(16, 16);
                 // enemy.scale.x = 0.8;
@@ -347,6 +333,24 @@
             this.resetGame();
         },
 
+        enemyLayerColission: function(enemy, layer) {
+            this.move(enemy, this.randomDirection());
+        },
+
+        randomDirection: function() {
+            var directionInt = this.rnd.integerInRange(0, 3);
+            switch(directionInt) {
+                case 0: 
+                    return Phaser.LEFT;
+                case 1:
+                    return Phaser.RIGHT;
+                case 2: 
+                    return Phaser.UP;
+                case 3: 
+                    return Phaser.DOWN;
+            }
+        },
+
         resetGame: function() {
             console.log('Game Reset!');
             timeCount = maxTime;
@@ -364,7 +368,7 @@
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
-            this.physics.arcade.collide(this.enemies, this.layer);
+            this.physics.arcade.collide(this.enemies, this.layer, this.enemyLayerColission, null, this);
             this.physics.arcade.overlap(this.pacman, this.enemies, this.enemyCollision, null, this);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
 
