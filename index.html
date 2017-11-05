@@ -316,12 +316,12 @@
             timeCount--;
             timeText.text = String(timeCount);
             if (timeCount === 0) {
-                resetGame();
+                this.resetGame();
             }
         },
 
         enemyCollision: function(pacman, enemy) {
-            resetGame();
+            this.resetGame();
         },
 
         resetGame: function() {
