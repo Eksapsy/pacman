@@ -75,6 +75,8 @@
             Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
 
             this.physics.startSystem(Phaser.Physics.ARCADE);
+
+            this.resetGame = this.resetGame.bind(this);
         },
 
         preload: function () {
@@ -315,7 +317,7 @@
             timeCount--;
             timeText.text = String(timeCount);
             if (timeCount === 0) {
-                this.resetTheGame();
+                this.resetGame();
             }
         },
 
@@ -323,7 +325,7 @@
             this.resetTheGame();
         },
 
-        resetTheGame: function() {
+        resetGame: function() {
             console.log('Game Reset!');
             timeCount = maxTime;
             scoreCount = 0;
