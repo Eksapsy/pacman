@@ -300,7 +300,7 @@
             const marked_x = this.math.snapToFloor(Math.floor(x), this.gridsize) / this.gridsize;
             const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
             const tile = this.map.getTileWorldXY(x, y, world_width, world_height);
-            console.log(tile);
+            console.log(`Tile on x:${x} y:${y}`, tile);
 
             return { x: tile.x, y: tile.y };
         },
@@ -393,6 +393,7 @@
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
             // console.log(`Marker x ${this.marker.x} y ${this.marker.y}`);
             console.log(`Pacman x ${this.pacman.x} y ${this.pacman.y}`);
+            console.log('Tile:', this.snapPointToMap(this.pacman.x, this.pacman.y, world_width, world_height));
 
             if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
                 this.pacman.x = 950;
