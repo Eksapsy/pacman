@@ -441,11 +441,11 @@
                 this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
                 this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
             } else {
-                this.pacman.velocity.x = 0;
-                this.pacman.velocity.y = 0;
+                this.pacman.body.velocity.x = 0;
+                this.pacman.body.velocity.y = 0;
                 for (var i = 0; i < totalEnemies; i++) {
-                    this.enemies.children[i].velocity.x = 0;
-                    this.enemies.children[i].velocity.y = 0;
+                    this.enemies.children[i].body.velocity.x = 0;
+                    this.enemies.children[i].body.velocity.y = 0;
                 }
             }
         } 
