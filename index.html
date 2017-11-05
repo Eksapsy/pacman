@@ -343,7 +343,7 @@
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
-            this.physics.arcade.collide(this.pacman, this.enemies, this.enemyCollision);
+            this.physics.arcade.collide(this.pacman, this.enemies, this.enemyCollision, null, this);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
@@ -377,9 +377,6 @@
         } 
 
     };
-
-    // Public Function
-    var resetGame = Pacman.prototype.resetGame;
 
     game.state.add('Game', Pacman, true);
 
