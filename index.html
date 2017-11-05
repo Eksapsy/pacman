@@ -132,7 +132,7 @@
             this.enemies = this.add.group();
             for (var i = 0; i < 4; i++) {
                 this.enemies.create(120*i, game.rnd.integerInRange(40,50), 'enemies', i);
-                // this.enemies.children[i].body.sprite.scale.set(0.8);
+                this.enemies.children[i].body.scale.set(0.8);
                 console.log(this.enemies);
             }
 
