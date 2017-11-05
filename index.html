@@ -19,7 +19,7 @@
     var game = new Phaser.Game(1024, 512, Phaser.AUTO);
 
     // Constants
-    const version = '0.7.8 alpha';
+    const version = '0.7.9 alpha';
 
     const maxTime = 255;
     const bonusMaxTime = 10;
@@ -246,7 +246,7 @@
         },
 
         move: function (direction) {
-
+            console.log('Moving to', direction);
             var speed = this.speed;
 
             if (direction === Phaser.LEFT || direction === Phaser.UP)
@@ -337,7 +337,6 @@
             this.pacman.x = pacman_init_x;
             this.pacman.y = pacman_init_y;
             // Placing Enemies
-            // this.enemies.physicsBodyType = this.physics.ARCADE;
             for (var i = 0; i < 4; i++) {
                 this.enemies.children[i].x = 400+16*i;
                 this.enemies.children[i].y = 140 + this.rnd.integerInRange(0,15);
@@ -353,7 +352,7 @@
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-            console.log(`Marker x ${this.marker.x} y ${this.marker.y}`);
+            // console.log(`Marker x ${this.marker.x} y ${this.marker.y}`);
 
             if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
                 this.pacman.x = 950;
