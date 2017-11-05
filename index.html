@@ -31,6 +31,7 @@
     const world_height = 512;
 
     const bonusScore = 100;
+    const init_lifes = 3;
 
     // Sounds
     var munch;
@@ -41,6 +42,7 @@
     var timeText;
 
     // Game Variables
+    var lifes = init_lifes;
     var scoreCount = 0;
     var timeCount = maxTime;
     var bonusCount = bonusMaxTime;
@@ -377,6 +379,8 @@
 
         update: function () {
             
+            this.checkKeys();
+
             this.physics.arcade.collide(this.pacman, this.layer);
             this.physics.arcade.collide(this.enemies, this.layer, this.enemyLayerColission, null, this);
             this.physics.arcade.overlap(this.pacman, this.enemies, this.enemyCollision, null, this);
@@ -401,8 +405,6 @@
             this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
             this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
             this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
-
-            this.checkKeys();
 
             if (this.turning !== Phaser.NONE)
             {
