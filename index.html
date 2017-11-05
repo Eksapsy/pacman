@@ -84,6 +84,7 @@
             this.load.image('dot', 'assets/fruit.png');
             this.load.image('tiles', 'assets/pacman-tiles.png');
             this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
+            this.load.spritesheet('enemies', 'assets/ghost-enemies', 32, 35);
             this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
 
             // Sounds
@@ -129,8 +130,9 @@
 
             // Placing Enemies
             this.enemies = this.add.group();
-            this.map.createFromObjects('Enemies', 25, null, null, true, false, this.enemies, Mouse);
-            this.enemies.setAll('player', this.pacman);
+            for (var i = 0; i < 4; i++) {
+                this.enemies.create(120*i, game.rnd.integerInRange(40,50), 'enemies', i);
+            }
 
             // Game Texts
             var style = { font: "36px Arial", fill: "#ffffff", align: "left" };
