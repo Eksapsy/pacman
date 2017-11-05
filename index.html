@@ -148,11 +148,11 @@
             // this.enemies.physicsBodyType = this.physics.ARCADE;
             for (var i = 0; i < 4; i++) {
                 // var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(0,15), 'enemies', i);
-                const x = 400+16*i;
-                const y = 140 + this.rnd.integerInRange(50,200);
+                const x = this.rnd.integerInRange(64, 944);
+                const y = 112;
                 const snappedPoint = this.snapPointToMap(x, y);
 
-                var enemy = this.enemies.create(snappedPoint.x, snappedPoint.y, 'enemies', i);
+                var enemy = this.enemies.create(snappedPoint.worldX, snappedPoint.worldY, 'enemies', i);
                 this.move(enemy, this.randomDirection());
 
                 enemy.body.setSize(16, 16);
