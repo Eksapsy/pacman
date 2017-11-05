@@ -326,7 +326,7 @@
             console.log(`Pacman x ${this.pacman.x} y ${this.pacman.y}`);
 
             if(this.marker.x === 4 && this.marker.y === 16) {
-                this.pacman.x = 960;
+                this.pacman.x = 950;
                 this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
                 this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
             }
