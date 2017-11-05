@@ -381,6 +381,11 @@
         update: function () {
 
             this.checkKeys();
+            
+            if (this.turning !== Phaser.NONE)
+            {
+                this.turn();
+            }
 
             this.physics.arcade.collide(this.pacman, this.layer);
             this.physics.arcade.collide(this.enemies, this.layer, this.enemyLayerColission, null, this);
@@ -407,10 +412,7 @@
             this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
             this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
 
-            if (this.turning !== Phaser.NONE)
-            {
-                this.turn();
-            }
+            
         } 
 
     };
