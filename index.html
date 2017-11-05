@@ -291,7 +291,7 @@
         snapPointToMap: function(x, y) {
             const marked_x = this.math.snapToFloor(Math.floor(x), this.gridsize) / this.gridsize;
             const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
-            const tile = this.map.getTile(marked_x, marked_y, this.dots);
+            const tile = this.map.getTile(marked_x, marked_y);
 
             return tile;
         },
