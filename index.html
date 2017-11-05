@@ -207,6 +207,7 @@
         },
 
         checkDirection: function (turnTo) {
+            console.log('Turned to:', turnTo);
 
             if (this.turning === turnTo || this.directions[turnTo] === null || this.directions[turnTo].index !== this.safetile)
             {
@@ -378,7 +379,7 @@
         },
 
         update: function () {
-            
+
             this.checkKeys();
 
             this.physics.arcade.collide(this.pacman, this.layer);
