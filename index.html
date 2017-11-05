@@ -299,10 +299,10 @@
         snapPointToMap: function(x, y) {
             const marked_x = this.math.snapToFloor(Math.floor(x), this.gridsize) / this.gridsize;
             const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
-            const tile = this.map.getTileWorldXY(x, y, world_width, world_height);
+            const tile = this.map.getTileWorldXY(x, y, 16, 16);
             console.log(`Tile on x:${x} y:${y}`, tile);
 
-            return { x: tile.x, y: tile.y };
+            return tile;
         },
 
         eatDot: function (pacman, dot) {
