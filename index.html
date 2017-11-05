@@ -135,7 +135,7 @@
             // Placing Enemies
             this.enemies = this.add.group();
             this.enemies.enableBody = true;
-            this.enemies.physicsBodyType = this.Physics.ARCADE;
+            this.enemies.physicsBodyType = this.physics.ARCADE;
             for (var i = 0; i < 4; i++) {
                 var enemy = this.enemies.create(400+16*i, 140 + game.rnd.integerInRange(0,15), 'enemies', i);
                 this.enemy.body.setRectangle(16, 16);
