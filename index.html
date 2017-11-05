@@ -295,7 +295,7 @@
         snapPointToMap: function(x, y) {
             const marked_x = this.math.snapToFloor(Math.floor(x), this.gridsize) / this.gridsize;
             const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
-            const tile = this.map.getTile(marked_x, marked_y);
+            const tile = this.map.getTile(x, y);
 
             return { x: tile.x, y: tile.y };
         },
@@ -346,7 +346,7 @@
         },
 
         enemyLayerColission: function(enemy, layer) {
-            this.move(enemy, this.randomDirection());
+            this.move(enemy, this.randomDirection(), false);
         },
 
         randomDirection: function() {
@@ -388,7 +388,6 @@
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
             // console.log(`Marker x ${this.marker.x} y ${this.marker.y}`);
             console.log(`Pacman x ${this.pacman.x} y ${this.pacman.y}`);
-            console.log('Centered point:', this.snapPointToMap(this.pacman.x, this.pacman.y));
 
             if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
                 this.pacman.x = 950;
