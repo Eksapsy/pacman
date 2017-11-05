@@ -315,15 +315,15 @@
             timeCount--;
             timeText.text = String(timeCount);
             if (timeCount === 0) {
-                this.resetGame();
+                this.resetTheGame();
             }
         },
 
         enemyCollision: function(pacman, enemy) {
-            this.resetGame();
+            this.resetTheGame();
         },
 
-        resetGame: function() {
+        resetTheGame: function() {
             console.log('Game Reset!');
             timeCount = maxTime;
             scoreCount = 0;
