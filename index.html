@@ -22,7 +22,7 @@
     const version = '0.8.0 alpha';
 
     const maxTime = 255;
-    const bonusMaxTime = 10;
+    const begin_time_init = 5;
 
     const pacman_init_x = 152;
     const pacman_init_y = 264;
@@ -45,8 +45,8 @@
     var lifes = init_lifes;
     var scoreCount = 0;
     var timeCount = maxTime;
-    var bonusCount = bonusMaxTime;
     var bonusIndex = -1;
+    var begin_time = begin_time_init;
 
 
     var game = new Phaser.Game(world_width, world_height, Phaser.AUTO);
@@ -207,7 +207,6 @@
         },
 
         checkDirection: function (turnTo) {
-            console.log('Turned to:', turnTo);
 
             if (this.turning === turnTo || this.directions[turnTo] === null || this.directions[turnTo].index !== this.safetile)
             {
@@ -335,6 +334,7 @@
 
         updateTime: function () {
             timeCount--;
+            begin_time--;
             timeText.text = String(timeCount);
             if (timeCount === 0) {
                 this.resetGame();
@@ -342,7 +342,12 @@
         },
 
         enemyCollision: function(pacman, enemy) {
-            this.resetGame();
+            lifes--;
+            if (lifes === 0) {
+                this.resetGame();
+            } else {
+                this.lifeLost();
+            }
         },
 
         enemyLayerColission: function(enemy, layer) {
@@ -366,7 +371,9 @@
         resetGame: function() {
             console.log('Game Reset!');
             timeCount = maxTime;
+            begin_time = begin_time_init;
             scoreCount = 0;
+            lifes = init_lifes;
             this.dots.callAll('revive');
             this.pacman.x = pacman_init_x;
             this.pacman.y = pacman_init_y;
@@ -376,43 +383,57 @@
                 this.enemies.children[i].x = tile.worldX;
                 this.enemies.children[i].y = tile.worldY;
             }
+            intro.play();
+        },
+
+        lifeLost: function() {
+            begin_time = begin_time_init;
+            this.dots.callAll('revive');
+            this.pacman.x = pacman_init_x;
+            this.pacman.y = pacman_init_y;
+            // Placing Enemies
+            for (var i = 0; i < 4; i++) {
+                const tile = this.snapPointToMap(this.rnd.integerInRange(64, 944), 112);
+                this.enemies.children[i].x = tile.worldX;
+                this.enemies.children[i].y = tile.worldY;
+            }
+            intro.play();
         },
 
         update: function () {
+            if (!begin_time > 0) {
+                this.checkKeys();
+                
+                if (this.turning !== Phaser.NONE)
+                {
+                    this.turn();
+                }
 
-            this.checkKeys();
-            
-            if (this.turning !== Phaser.NONE)
-            {
-                this.turn();
-            }
+                this.physics.arcade.collide(this.pacman, this.layer);
+                this.physics.arcade.collide(this.enemies, this.layer, this.enemyLayerColission, null, this);
+                this.physics.arcade.overlap(this.pacman, this.enemies, this.enemyCollision, null, this);
+                this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
 
-            this.physics.arcade.collide(this.pacman, this.layer);
-            this.physics.arcade.collide(this.enemies, this.layer, this.enemyLayerColission, null, this);
-            this.physics.arcade.overlap(this.pacman, this.enemies, this.enemyCollision, null, this);
-            this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
-
-            this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
-            this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-
-            if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
-                this.pacman.x = 950;
                 this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
                 this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-            }
-            if(Math.ceil(this.pacman.x) === 960 && this.pacman.y === 264) {
-                this.pacman.x = 60;
-                this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
-                this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-            }
 
-            //  Update our grid sensors
-            this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
+                if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
+                    this.pacman.x = 950;
+                    this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
+                    this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
+                }
+                if(Math.ceil(this.pacman.x) === 960 && this.pacman.y === 264) {
+                    this.pacman.x = 60;
+                    this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
+                    this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
+                }
 
-            
+                //  Update our grid sensors
+                this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
+            }
         } 
 
     };
