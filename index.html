@@ -412,6 +412,7 @@
         lifeLost: function() {
             console.debug('Life Lost! Total Lifes:', lifes);
             begin_time = begin_time_init;
+            lifes--;
             this.dots.callAll('revive');
             this.pacman.x = pacman_init_x;
             this.pacman.y = pacman_init_y;
