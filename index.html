@@ -66,9 +66,6 @@
 
     };
 
-    // Public Function
-    var resetGame = Pacman.prototype.resetGame();
-
     Pacman.prototype = {
 
         init: function () {
@@ -380,6 +377,9 @@
         } 
 
     };
+
+    // Public Function
+    var resetGame = Pacman.prototype.resetGame();
 
     game.state.add('Game', Pacman, true);
 
