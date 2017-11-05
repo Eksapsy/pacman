@@ -144,7 +144,11 @@
             // this.enemies.physicsBodyType = this.physics.ARCADE;
             for (var i = 0; i < 4; i++) {
                 // var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(0,15), 'enemies', i);
-                var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(50,200), 'enemies', i);
+                const x = 400+16*i;
+                const y = 140 + this.rnd.integerInRange(50,200);
+                const snappedPoint = this.snapPointToMap(x, y);
+
+                var enemy = this.enemies.create(snappedPoint.x, snappedPoint.y, 'enemies', i);
                 this.move(enemy, this.randomDirection());
 
                 enemy.body.setSize(16, 16);
@@ -293,7 +297,7 @@
             const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
             const tile = this.map.getTile(marked_x, marked_y);
 
-            return tile;
+            return { x: tile.x, y: tile.y };
         },
 
         eatDot: function (pacman, dot) {
