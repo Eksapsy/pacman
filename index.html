@@ -322,23 +322,20 @@
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
+            console.log(`x ${this.marker.x} y ${this.marker.y}`);
+
+            if(this.marker.x === 900 && this.marker.y === 248) {
+                this.marker.x = 100;
+            }
+            if(this.marker.x === 100 && this.marker.y === 248) {
+                this.marker.x = 900;
+            }
 
             //  Update our grid sensors
-            try{
-                this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
-                this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
-                this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
-                this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
-            } catch(e) {
-                this.pacman.x = (14 * 10) + 8;
-                this.pacman.y = (17 * 16) + 8;
-                this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
-                this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-                this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
-                this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
-                this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
-                this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
-            }
+            this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
+            this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
+            this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
+            this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
 
             this.checkKeys();
 
