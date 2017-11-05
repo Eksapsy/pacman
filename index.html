@@ -33,6 +33,8 @@
     const bonusScore = 100;
     const init_lifes = 3;
 
+    const totalEnemies = 4;
+
     // Sounds
     var munch;
     var intro;
@@ -142,20 +144,18 @@
             this.cursors = this.input.keyboard.createCursorKeys();
 
             this.pacman.play('munch');
-            this.move(this.pacman, Phaser.LEFT);
 
             // Placing Enemies
             this.enemies = this.add.group();
             this.enemies.enableBody = true;
             // this.enemies.physicsBodyType = this.physics.ARCADE;
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i < totalEnemies; i++) {
                 // var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(0,15), 'enemies', i);
                 const x = this.rnd.integerInRange(64, 944);
                 const y = 112;
                 const snappedPoint = this.snapPointToMap(x, y);
 
                 var enemy = this.enemies.create(snappedPoint.worldX, snappedPoint.worldY, 'enemies', i);
-                this.move(enemy, this.randomDirection());
 
                 enemy.body.setSize(16, 16);
             }
@@ -339,6 +339,13 @@
             if (timeCount === 0) {
                 this.resetGame();
             }
+            if (begin_time === 0) {
+                this.move(this.pacman, Phaser.DOWN);
+                for (var i = 0; i < totalEnemies; i++) {
+                    this.move(this.enemies.children[i], this.randomDirection(), false);
+                }
+                
+            }
         },
 
         enemyCollision: function(pacman, enemy) {
@@ -378,7 +385,7 @@
             this.pacman.x = pacman_init_x;
             this.pacman.y = pacman_init_y;
             // Placing Enemies
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i < totalEnemies; i++) {
                 const tile = this.snapPointToMap(this.rnd.integerInRange(64, 944), 112);
                 this.enemies.children[i].x = tile.worldX;
                 this.enemies.children[i].y = tile.worldY;
@@ -392,7 +399,7 @@
             this.pacman.x = pacman_init_x;
             this.pacman.y = pacman_init_y;
             // Placing Enemies
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i < totalEnemies; i++) {
                 const tile = this.snapPointToMap(this.rnd.integerInRange(64, 944), 112);
                 this.enemies.children[i].x = tile.worldX;
                 this.enemies.children[i].y = tile.worldY;
@@ -433,6 +440,13 @@
                 this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
                 this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
                 this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
+            } else {
+                this.pacman.velocity.x = 0;
+                this.pacman.velocity.y = 0;
+                for (var i = 0; i < totalEnemies; i++) {
+                    this.enemies.children[i].velocity.x = 0;
+                    this.enemies.children[i].velocity.y = 0;
+                }
             }
         } 
 
