@@ -41,6 +41,9 @@
     var bonusCount = bonusMaxTime;
     var bonusIndex = -1;
 
+    // Public Function
+    var resetGame = Pacman.resetGame;
+
     var Pacman = function (game) {
 
         this.map = null;
@@ -322,7 +325,7 @@
         },
 
         enemyCollision: function(pacman, enemy) {
-            this.resetGame();
+            resetGame();
         },
 
         resetGame: function() {
