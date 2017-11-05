@@ -119,8 +119,6 @@
             //  Pacman should collide with everything except the safe tile
             this.map.setCollisionByExclusion([this.safetile], true, this.layer);
 
-            var enemyCollisionGroup = this.physics.p2.createCollisionGroup();
-
             //  Position Pacman at grid location 14x17 (the +8 accounts for his anchor)
             this.pacman = this.add.sprite(pacman_init_x, pacman_init_y, 'pacman', 0);
             this.pacman.anchor.set(0.5);
@@ -139,8 +137,8 @@
             for (var i = 0; i < 4; i++) {
                 var enemy = this.enemies.create(400+16*i, 140 + game.rnd.integerInRange(0,15), 'enemies', i);
                 enemy.body.setRectangle(16, 16);
-                enemy.scale.x = 0.8;
-                enemy.scale.y = 0.8;
+                // enemy.scale.x = 0.8;
+                // enemy.scale.y = 0.8;
                 enemy.body.setCollisionGroup(enemyCollisionGroup);
                 enemy.body.collides([enemyCollisionGroup, pacman])
                 console.log(this.enemies.children[i]);
