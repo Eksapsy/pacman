@@ -156,7 +156,7 @@
                 const snappedPoint = this.snapPointToMap(x, y);
 
                 var enemy = this.enemies.create(snappedPoint.worldX, snappedPoint.worldY, 'enemies', i);
-                enemy.body.anchor.set(0.5);
+                enemy.anchor.set(0.5);
 
                 enemy.body.setSize(16, 16);
             }
