@@ -297,8 +297,6 @@
         },
 
         snapPointToMap: function(x, y) {
-            const marked_x = this.math.snapToFloor(Math.floor(x), this.gridsize) / this.gridsize;
-            const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
             const tile = this.map.getTileWorldXY(x, y, 16, 16);
             console.log(`Tile on x:${x} y:${y}`, tile);
 
@@ -377,7 +375,7 @@
             this.pacman.y = pacman_init_y;
             // Placing Enemies
             for (var i = 0; i < 4; i++) {
-                const tile = this.snapPointToMap(this.rnd.integerInRange(64, 944), , 112);
+                const tile = this.snapPointToMap(this.rnd.integerInRange(64, 944), 112);
                 this.enemies.children[i].x = tile.worldX;
                 this.enemies.children[i].y = tile.worldY;
             }
