@@ -144,20 +144,20 @@
             // this.enemies.physicsBodyType = this.physics.ARCADE;
             for (var i = 0; i < 4; i++) {
                 // var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(0,15), 'enemies', i);
-                var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(100,300), 'enemies', i);
+                var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(50,200), 'enemies', i);
                 var directionInt = this.rnd.integerInRange(0, 3);
                 switch(directionInt) {
                     case 0: 
-                        this.move(enemy, Phaser.LEFT);
+                        this.move(enemy, Phaser.LEFT, false);
                         break;
                     case 1:
-                        this.move(enemy, Phaser.RIGHT);
+                        this.move(enemy, Phaser.RIGHT, false);
                         break;
                     case 2: 
-                        this.move(enemy, Phaser.UP);
+                        this.move(enemy, Phaser.UP, false);
                         break;
                     case 3: 
-                        this.move(enemy, Phaser.DOWN);
+                        this.move(enemy, Phaser.DOWN, false);
                         break;
                 }
 
@@ -262,9 +262,9 @@
 
         },
 
-        move: function (object, direction) {
+        move: function (object, direction, turning=true) {
             var speed = this.speed;
-
+            
             if (direction === Phaser.LEFT || direction === Phaser.UP)
             {
                 speed = -speed;
@@ -283,17 +283,19 @@
             object.scale.x = 1;
             object.angle = 0;
 
-            if (direction === Phaser.LEFT)
-            {
-                object.scale.x = -1;
-            }
-            else if (direction === Phaser.UP)
-            {
-                object.angle = 270;
-            }
-            else if (direction === Phaser.DOWN)
-            {
-                object.angle = 90;
+            if(turning) {
+                if (direction === Phaser.LEFT)
+                {
+                    object.scale.x = -1;
+                }
+                else if (direction === Phaser.UP)
+                {
+                    object.angle = 270;
+                }
+                else if (direction === Phaser.DOWN)
+                {
+                    object.angle = 90;
+                }
             }
 
             this.current = direction;
