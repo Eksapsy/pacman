@@ -333,13 +333,15 @@
         },
 
         updateTime: function () {
-            timeCount--;
-            timeText.text = String(timeCount);
             if (timeCount === 0) {
                 this.resetGame();
             }
             if (begin_time >= 0) {
+                console.debug(String(begin_time + ' !'));
                 begin_time--;
+            } else {
+                timeCount--;
+                timeText.text = String(timeCount);
             }
             if (begin_time === 0) {
                 this.move(this.pacman, Phaser.DOWN);
