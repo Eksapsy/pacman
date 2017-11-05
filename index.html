@@ -294,7 +294,6 @@
             // Check Bonus Collision
             const isBonus = this.dots.getChildIndex(dot) === bonusIndex;
             if (isBonus) {
-                console.log('Ate Bonus!');
                 scoreCount = scoreCount + 25;
                 this.generateBonus();
             }
@@ -312,18 +311,6 @@
             this.dots.children[bonusIndex].loadTexture('bonus');
         },
 
-        resetGame: function() {
-            timeCount = maxTime;
-            scoreCount = 0;
-            this.dots.callAll('revive');
-            this.pacman.x = pacman_init_x;
-            this.pacman.y = pacman_init_y;
-            for (var i = 0; i < 4; i++) {
-                this.enemies.children[i].x = 400+16*i;
-                this.enemies.children[i].y = 140 + game.rnd.integerInRange(0,15);
-            }
-        },
-
         updateTime: function () {
             timeCount--;
             timeText.text = String(timeCount);
@@ -334,6 +321,19 @@
 
         enemyCollision: function(pacman, enemy) {
             this.resetGame();
+        },
+
+        resetGame: function() {
+            console.log('Game Reset!');
+            timeCount = maxTime;
+            scoreCount = 0;
+            this.dots.callAll('revive');
+            this.pacman.x = pacman_init_x;
+            this.pacman.y = pacman_init_y;
+            for (var i = 0; i < 4; i++) {
+                this.enemies.children[i].x = 400+16*i;
+                this.enemies.children[i].y = 140 + game.rnd.integerInRange(0,15);
+            }
         },
 
         update: function () {
