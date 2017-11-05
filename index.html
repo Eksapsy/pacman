@@ -334,15 +334,13 @@
             timeCount = maxTime;
             scoreCount = 0;
             this.dots.callAll('revive');
-            // this.pacman.x = pacman_init_x;
-            // this.pacman.y = pacman_init_y;
+            this.pacman.x = pacman_init_x;
+            this.pacman.y = pacman_init_y;
             // Placing Enemies
-            this.enemies = this.add.group();
-            this.enemies.enableBody = true;
             // this.enemies.physicsBodyType = this.physics.ARCADE;
             for (var i = 0; i < 4; i++) {
-                var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(0,15), 'enemies', i);
-                enemy.body.setSize(16, 16);
+                this.enemies.children[i].x = 400+16*i;
+                this.enemies.children[i].y = 140 + this.rnd.integerInRange(0,15);
             }
         },
 
