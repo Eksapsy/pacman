@@ -35,6 +35,9 @@
 
     const totalEnemies = 4;
 
+    const gui_lifes_x = world_width-32*3 + 3*5; // 32x3: 3 Hearts x 32 Pixels, 3x5: 3 x 5 Offset X
+    const gui_lifes_y = 50;
+
     // Sounds
     var munch;
     var intro;
@@ -170,8 +173,9 @@
 
             this.lifes = this.add.group();
             for (var i = 0; i < lifes; i++) {
-                var life = this.lifes.create(5 + 32*i, 50, 'life');
+                var life = this.lifes.create(gui_lifes_x + 32*i, gui_lifes_y, 'life');
             }
+
             // Sounds
             munch = this.add.audio('munch', 0.3);
             intro = this.add.audio('intro', 0.5);
