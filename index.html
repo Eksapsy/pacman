@@ -131,7 +131,7 @@
             // Placing Enemies
             this.enemies = this.add.group();
             for (var i = 0; i < 4; i++) {
-                this.enemies.create(430+15*i, 152 + game.rnd.integerInRange(0,30), 'enemies', i);
+                this.enemies.create(400+15*i, 152 + game.rnd.integerInRange(0,30), 'enemies', i);
                 this.enemies.children[i].scale.x = 0.8;
                 this.enemies.children[i].scale.y = 0.8;
                 console.log(this.enemies.children[i]);
