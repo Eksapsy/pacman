@@ -312,18 +312,6 @@
             this.dots.children[bonusIndex].loadTexture('bonus');
         },
 
-        updateTime: function () {
-            timeCount--;
-            timeText.text = String(timeCount);
-            if (timeCount === 0) {
-                this.resetGame();
-            }
-        },
-
-        enemyCollision: function(pacman, enemy) {
-            this.resetGame();
-        },
-
         resetGame: function() {
             timeCount = maxTime;
             scoreCount = 0;
@@ -334,6 +322,18 @@
                 this.enemies.children[i].x = 400+16*i;
                 this.enemies.children[i].y = 140 + game.rnd.integerInRange(0,15);
             }
+        },
+
+        updateTime: function () {
+            timeCount--;
+            timeText.text = String(timeCount);
+            if (timeCount === 0) {
+                this.resetGame();
+            }
+        },
+
+        enemyCollision: function(pacman, enemy) {
+            this.resetGame();
         },
 
         update: function () {
