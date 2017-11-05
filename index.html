@@ -325,12 +325,12 @@
             console.log(`Marker x ${this.marker.x} y ${this.marker.y}`);
             console.log(`Pacman x ${this.pacman.x} y ${this.pacman.y}`);
 
-            if(Math.Ceil(this.pacman.x) === 0 && this.pacman.y === 264) {
+            if(Math.ceil(this.pacman.x) === 0 && this.pacman.y === 264) {
                 this.pacman.x = 950;
                 this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
                 this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
             }
-            if(Math.Ceil(this.pacman.x) === 60 && this.pacman.y === 264) {
+            if(Math.ceil(this.pacman.x) === 60 && this.pacman.y === 264) {
                 this.pacman.x = 80;
                 this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
                 this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
