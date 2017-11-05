@@ -288,6 +288,14 @@
 
         },
 
+        snapPointToMap: function(x, y) {
+            const marked_x = this.math.snapToFloor(Math.floor(x), this.gridsize) / this.gridsize;
+            const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
+            const tile = this.map.getTile(marked_x, marked_y, this.dots);
+
+            return tile.Point;
+        },
+
         eatDot: function (pacman, dot) {
             dot.kill();
             dot.loadTexture('dot');
@@ -366,7 +374,7 @@
         },
 
         update: function () {
-          
+            
             this.physics.arcade.collide(this.pacman, this.layer);
             this.physics.arcade.collide(this.enemies, this.layer, this.enemyLayerColission, null, this);
             this.physics.arcade.overlap(this.pacman, this.enemies, this.enemyCollision, null, this);
@@ -376,6 +384,7 @@
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
             // console.log(`Marker x ${this.marker.x} y ${this.marker.y}`);
             console.log(`Pacman x ${this.pacman.x} y ${this.pacman.y}`);
+            console.log('Centered point:', snapPointToMap(this.pacman.x, this.pacman.y));
 
             if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
                 this.pacman.x = 950;
