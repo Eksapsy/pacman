@@ -19,10 +19,10 @@
     
 
     // Constants
-    const version = '0.8.0 alpha';
+    const version = '0.8.1 alpha';
 
     const maxTime = 255;
-    const begin_time_init = 5;
+    const begin_time_init = 3;
 
     const pacman_init_x = 152;
     const pacman_init_y = 264;
@@ -334,17 +334,18 @@
 
         updateTime: function () {
             timeCount--;
-            begin_time--;
             timeText.text = String(timeCount);
             if (timeCount === 0) {
                 this.resetGame();
+            }
+            if (begin_time > 0) {
+                begin_time--;
             }
             if (begin_time === 0) {
                 this.move(this.pacman, Phaser.DOWN);
                 for (var i = 0; i < totalEnemies; i++) {
                     this.move(this.enemies.children[i], this.randomDirection(), false);
                 }
-                
             }
         },
 
@@ -376,7 +377,7 @@
         },
 
         resetGame: function() {
-            console.log('Game Reset!');
+            console.debug('Game Reset!');
             timeCount = maxTime;
             begin_time = begin_time_init;
             scoreCount = 0;
@@ -394,6 +395,7 @@
         },
 
         lifeLost: function() {
+            console.debug('Life Lost! Total Lifes:', lifes);
             begin_time = begin_time_init;
             this.dots.callAll('revive');
             this.pacman.x = pacman_init_x;
@@ -441,6 +443,7 @@
                 this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
                 this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
             } else {
+                
                 this.pacman.body.velocity.x = 0;
                 this.pacman.body.velocity.y = 0;
                 for (var i = 0; i < totalEnemies; i++) {
