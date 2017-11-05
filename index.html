@@ -324,10 +324,21 @@
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
 
             //  Update our grid sensors
-            this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
+            try{
+                this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
+            } catch(e) {
+                this.pacman.x = (14 * 10) + 8;
+                this.pacman.y = (17 * 16) + 8;
+                this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
+                this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
+                this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
+            }
 
             this.checkKeys();
 
