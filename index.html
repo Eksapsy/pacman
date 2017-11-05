@@ -404,7 +404,7 @@
             // Life GUI
             this.lifes.removeAll();
             for (var i = 0; i < lifes; i++) {
-                var life = this.lifes.create(gui_lifes_x, gui_lifes_y, 'life');
+                var life = this.lifes.create(gui_lifes_x + 32*i, gui_lifes_y, 'life');
             }
             intro.play();
         },
@@ -425,7 +425,7 @@
             // Life GUI
             this.lifes.removeAll();
             for (var i = 0; i < lifes; i++) {
-                var life = this.lifes.create(gui_lifes_x, gui_lifes_y, 'life');
+                var life = this.lifes.create(gui_lifes_x + 32*i, gui_lifes_y, 'life');
             }
             intro.play();
         },
