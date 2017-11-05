@@ -19,7 +19,7 @@
     var game = new Phaser.Game(1024, 512, Phaser.AUTO);
 
     // Constants
-    const version = '0.6.0 alpha';
+    const version = '0.7.0 alpha';
 
     // Sounds
     var munch;
@@ -126,6 +126,11 @@
 
             this.pacman.play('munch');
             this.move(Phaser.LEFT);
+
+            // Placing Enemies
+            this.enemies = this.add.group();
+            this.map.createFromObjects('Enemies', 25, null, null, true, false, this.enemies, Mouse);
+            this.enemies.setAll('player', this.pacman);
 
             // Game Texts
             var style = { font: "36px Arial", fill: "#ffffff", align: "left" };
