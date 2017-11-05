@@ -19,7 +19,7 @@
     var game = new Phaser.Game(1024, 512, Phaser.AUTO);
 
     // Constants
-    const version = '0.7.4 alpha';
+    const version = '0.7.5 alpha';
 
     // Sounds
     var munch;
@@ -331,7 +331,7 @@
                 this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
             }
             if(Math.ceil(this.pacman.x) === 960 && this.pacman.y === 264) {
-                this.pacman.x = 10;
+                this.pacman.x = 20;
                 this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
                 this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
             }
