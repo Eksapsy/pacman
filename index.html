@@ -21,6 +21,12 @@
     // Constants
     const version = '0.7.7 alpha';
 
+    const maxTime = 255;
+    const bonusMaxTime = 10;
+
+    const pacman_init_x = (14 * 10) + 8;
+    const pacman_init_y = (17 * 16) + 8;
+
     // Sounds
     var munch;
     var intro;
@@ -30,8 +36,6 @@
     var timeText;
 
     // Game Variables
-    const maxTime = 255;
-    const bonusMaxTime = 10;
     var scoreCount = 0;
     var timeCount = maxTime;
     var bonusCount = bonusMaxTime;
@@ -118,7 +122,7 @@
             var enemyCollisionGroup = this.physics.p2.createCollisionGroup();
 
             //  Position Pacman at grid location 14x17 (the +8 accounts for his anchor)
-            this.pacman = this.add.sprite((14 * 10) + 8, (17 * 16) + 8, 'pacman', 0);
+            this.pacman = this.add.sprite(pacman_init_x, pacman_init_y, 'pacman', 0);
             this.pacman.anchor.set(0.5);
             this.pacman.animations.add('munch', [0, 1, 2, 1], 20, true);
 
@@ -135,8 +139,8 @@
             for (var i = 0; i < 4; i++) {
                 var enemy = this.enemies.create(400+16*i, 140 + game.rnd.integerInRange(0,15), 'enemies', i);
                 enemy.body.setRectangle(16, 16);
-                // enemy.scale.x = 0.8;
-                // enemy.scale.y = 0.8;
+                enemy.scale.x = 0.8;
+                enemy.scale.y = 0.8;
                 enemy.body.setCollisionGroup(enemyCollisionGroup);
                 enemy.body.collides([enemyCollisionGroup, pacman])
                 console.log(this.enemies.children[i]);
@@ -314,15 +318,30 @@
             timeCount--;
             timeText.text = String(timeCount);
             if (timeCount === 0) {
-                timeCount = maxTime;
-                scoreCount = 0;
-                this.dots.callAll('revive');
+                resetGame();
+            }
+        },
+
+        enemyCollision: function(pacman, enemy) {
+            resetGame();
+        },
+
+        resetGame: function() {
+            timeCount = maxTime;
+            scoreCount = 0;
+            this.dots.callAll('revive');
+            this.pacman.x = pacman_init_x;
+            this.pacman.y = pacman_init_y;
+            for (var i = 0; i < 4; i++) {
+                this.enemies.children[i].x = 400+16*i;
+                this.enemies.children[i].y = 140 + game.rnd.integerInRange(0,15);
             }
         },
 
         update: function () {
           
             this.physics.arcade.collide(this.pacman, this.layer);
+            this.physics.arcade.collide(this.pacman, this.enemies, this.enemyCollision);
             this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
