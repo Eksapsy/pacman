@@ -16,7 +16,7 @@
 
     <script type="text/javascript">
 
-    var game = new Phaser.Game(1024, 512, Phaser.AUTO);
+    
 
     // Constants
     const version = '0.7.9 alpha';
@@ -26,6 +26,9 @@
 
     const pacman_init_x = 152;
     const pacman_init_y = 264;
+
+    const world_width = 1024;
+    const world_height = 512;
 
     const bonusScore = 100;
 
@@ -43,7 +46,8 @@
     var bonusCount = bonusMaxTime;
     var bonusIndex = -1;
 
-    
+
+    var game = new Phaser.Game(world_width, world_height, Phaser.AUTO);
 
     var Pacman = function (game) {
 
@@ -295,7 +299,8 @@
         snapPointToMap: function(x, y) {
             const marked_x = this.math.snapToFloor(Math.floor(x), this.gridsize) / this.gridsize;
             const marked_y = this.math.snapToFloor(Math.floor(y), this.gridsize) / this.gridsize;
-            const tile = this.map.getTile(x, y);
+            const tile = this.map.getTileWorldXY(x, y, world_width, world_height);
+            console.log(tile);
 
             return { x: tile.x, y: tile.y };
         },
