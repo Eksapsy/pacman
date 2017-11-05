@@ -156,9 +156,6 @@
                 this.move(enemy, this.randomDirection());
 
                 enemy.body.setSize(16, 16);
-                // enemy.scale.x = 0.8;
-                // enemy.scale.y = 0.8;
-                console.log(this.enemies.children[i]);
             }
 
             // Game Texts
@@ -297,10 +294,7 @@
         },
 
         snapPointToMap: function(x, y) {
-            const tile = this.map.getTileWorldXY(x, y, 16, 16);
-            console.log(`Tile on x:${x} y:${y}`, tile);
-
-            return tile;
+            return this.map.getTileWorldXY(x, y, 16, 16);;
         },
 
         eatDot: function (pacman, dot) {
@@ -390,9 +384,6 @@
 
             this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
             this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-            // console.log(`Marker x ${this.marker.x} y ${this.marker.y}`);
-            console.log(`Pacman x ${this.pacman.x} y ${this.pacman.y}`);
-            console.log('Tile:', this.snapPointToMap(this.pacman.x, this.pacman.y, world_width, world_height));
 
             if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
                 this.pacman.x = 950;
