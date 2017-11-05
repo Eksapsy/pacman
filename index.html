@@ -19,10 +19,10 @@
     
 
     // Constants
-    const version = '0.8.0 alpha';
+    const version = '0.8.1 alpha';
 
     const maxTime = 255;
-    const bonusMaxTime = 10;
+    const begin_time_init = 3;
 
     const pacman_init_x = 152;
     const pacman_init_y = 264;
@@ -32,6 +32,11 @@
 
     const bonusScore = 100;
     const init_lifes = 3;
+
+    const totalEnemies = 4;
+
+    const gui_lifes_x = world_width-32*3 - 3*5; // 32x3: 3 Hearts x 32 Pixels, 3x5: 3 x 5 Offset X
+    const gui_lifes_y = 50;
 
     // Sounds
     var munch;
@@ -45,8 +50,8 @@
     var lifes = init_lifes;
     var scoreCount = 0;
     var timeCount = maxTime;
-    var bonusCount = bonusMaxTime;
     var bonusIndex = -1;
+    var begin_time = begin_time_init;
 
 
     var game = new Phaser.Game(world_width, world_height, Phaser.AUTO);
@@ -99,6 +104,7 @@
             this.load.image('bonus', 'assets/bonusCoin.png');
             this.load.image('dot', 'assets/fruit.png');
             this.load.image('tiles', 'assets/pacman-tiles.png');
+            this.load.image('life', 'assets/life.png');
             this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
             this.load.spritesheet('enemies', 'assets/ghosts-enemies.png', 32, 35);
             this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
@@ -142,30 +148,33 @@
             this.cursors = this.input.keyboard.createCursorKeys();
 
             this.pacman.play('munch');
-            this.move(this.pacman, Phaser.LEFT);
 
             // Placing Enemies
             this.enemies = this.add.group();
             this.enemies.enableBody = true;
             // this.enemies.physicsBodyType = this.physics.ARCADE;
-            for (var i = 0; i < 4; i++) {
-                // var enemy = this.enemies.create(400+16*i, 140 + this.rnd.integerInRange(0,15), 'enemies', i);
+            for (var i = 0; i < totalEnemies; i++) {
                 const x = this.rnd.integerInRange(64, 944);
                 const y = 112;
                 const snappedPoint = this.snapPointToMap(x, y);
 
                 var enemy = this.enemies.create(snappedPoint.worldX, snappedPoint.worldY, 'enemies', i);
-                this.move(enemy, this.randomDirection());
+                enemy.anchor.set(0.5);
 
                 enemy.body.setSize(16, 16);
             }
 
-            // Game Texts
+            // Game Texts && GUI
             var style = { font: "36px Arial", fill: "#ffffff", align: "left" };
             scoreText = this.add.text(this.world.centerX, 50, String('Score:' + scoreCount), style);
             scoreText.anchor.set(0.0);
             timeText = this.add.text(0, 50, String(maxTime), style);
             timeText.anchor.set(0.0);
+
+            this.lifes = this.add.group();
+            for (var i = 0; i < lifes; i++) {
+                var life = this.lifes.create(gui_lifes_x + 32*i, gui_lifes_y, 'life');
+            }
 
             // Sounds
             munch = this.add.audio('munch', 0.3);
@@ -207,7 +216,6 @@
         },
 
         checkDirection: function (turnTo) {
-            console.log('Turned to:', turnTo);
 
             if (this.turning === turnTo || this.directions[turnTo] === null || this.directions[turnTo].index !== this.safetile)
             {
@@ -334,15 +342,29 @@
         },
 
         updateTime: function () {
-            timeCount--;
-            timeText.text = String(timeCount);
             if (timeCount === 0) {
                 this.resetGame();
+            }
+            if (begin_time >= 0) {
+                begin_time--;
+            } else {
+                timeCount--;
+                timeText.text = String(timeCount);
+            }
+            if (begin_time === 0) {
+                this.move(this.pacman, Phaser.DOWN);
+                for (var i = 0; i < totalEnemies; i++) {
+                    this.move(this.enemies.children[i], this.randomDirection(), false);
+                }
             }
         },
 
         enemyCollision: function(pacman, enemy) {
-            this.resetGame();
+            if (lifes === 1) {
+                this.resetGame();
+            } else {
+                this.lifeLost();
+            }
         },
 
         enemyLayerColission: function(enemy, layer) {
@@ -364,55 +386,91 @@
         },
 
         resetGame: function() {
-            console.log('Game Reset!');
+            console.debug('Game Reset!');
             timeCount = maxTime;
+            begin_time = begin_time_init;
             scoreCount = 0;
+            lifes = init_lifes;
             this.dots.callAll('revive');
             this.pacman.x = pacman_init_x;
             this.pacman.y = pacman_init_y;
             // Placing Enemies
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i < totalEnemies; i++) {
                 const tile = this.snapPointToMap(this.rnd.integerInRange(64, 944), 112);
                 this.enemies.children[i].x = tile.worldX;
                 this.enemies.children[i].y = tile.worldY;
             }
+            // Life GUI
+            this.lifes.removeChildren();
+            for (var i = 0; i < lifes; i++) {
+                var life = this.lifes.create(gui_lifes_x + 32*i, gui_lifes_y, 'life');
+            }
+            intro.play();
+        },
+
+        lifeLost: function() {
+            console.debug('Life Lost! Total Lifes:', lifes);
+            begin_time = begin_time_init;
+            lifes--;
+            this.dots.callAll('revive');
+            this.pacman.x = pacman_init_x;
+            this.pacman.y = pacman_init_y;
+            // Placing Enemies
+            for (var i = 0; i < totalEnemies; i++) {
+                const tile = this.snapPointToMap(this.rnd.integerInRange(64, 944), 112);
+                this.enemies.children[i].x = tile.worldX;
+                this.enemies.children[i].y = tile.worldY;
+            }
+            // Life GUI
+            this.lifes.removeChildren();
+            for (var i = 0; i < lifes; i++) {
+                var life = this.lifes.create(gui_lifes_x + 32*i, gui_lifes_y, 'life');
+            }
+            intro.play();
         },
 
         update: function () {
+            if (!begin_time >= 0) {
+                this.checkKeys();
+                
+                if (this.turning !== Phaser.NONE)
+                {
+                    this.turn();
+                }
 
-            this.checkKeys();
-            
-            if (this.turning !== Phaser.NONE)
-            {
-                this.turn();
-            }
+                this.physics.arcade.collide(this.pacman, this.layer);
+                this.physics.arcade.collide(this.enemies, this.layer, this.enemyLayerColission, null, this);
+                this.physics.arcade.overlap(this.pacman, this.enemies, this.enemyCollision, null, this);
+                this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
 
-            this.physics.arcade.collide(this.pacman, this.layer);
-            this.physics.arcade.collide(this.enemies, this.layer, this.enemyLayerColission, null, this);
-            this.physics.arcade.overlap(this.pacman, this.enemies, this.enemyCollision, null, this);
-            this.physics.arcade.overlap(this.pacman, this.dots, this.eatDot, null, this);
-
-            this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
-            this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-
-            if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
-                this.pacman.x = 950;
                 this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
                 this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-            }
-            if(Math.ceil(this.pacman.x) === 960 && this.pacman.y === 264) {
-                this.pacman.x = 60;
-                this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
-                this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
-            }
 
-            //  Update our grid sensors
-            this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
-            this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
+                if(Math.ceil(this.pacman.x) === 50 && this.pacman.y === 264) {
+                    this.pacman.x = 950;
+                    this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
+                    this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
+                }
+                if(Math.ceil(this.pacman.x) === 960 && this.pacman.y === 264) {
+                    this.pacman.x = 60;
+                    this.marker.x = this.math.snapToFloor(Math.floor(this.pacman.x), this.gridsize) / this.gridsize;
+                    this.marker.y = this.math.snapToFloor(Math.floor(this.pacman.y), this.gridsize) / this.gridsize;
+                }
 
-            
+                //  Update our grid sensors
+                this.directions[1] = this.map.getTileLeft(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[2] = this.map.getTileRight(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[3] = this.map.getTileAbove(this.layer.index, this.marker.x, this.marker.y);
+                this.directions[4] = this.map.getTileBelow(this.layer.index, this.marker.x, this.marker.y);
+            } else {
+                
+                this.pacman.body.velocity.x = 0;
+                this.pacman.body.velocity.y = 0;
+                for (var i = 0; i < totalEnemies; i++) {
+                    this.enemies.children[i].body.velocity.x = 0;
+                    this.enemies.children[i].body.velocity.y = 0;
+                }
+            }
         } 
 
     };
