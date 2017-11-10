@@ -265,6 +265,7 @@
         },
 
         move: function (object, direction, turning=true) {
+            console.log('DIRECTION:', direction);
             var speed = this.speed;
             
             if (direction === Phaser.LEFT || direction === Phaser.UP)
