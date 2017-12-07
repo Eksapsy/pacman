@@ -535,15 +535,9 @@
 
             Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
 
-            this.button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
+            this.button = game.add.button(game.world.centerX - 95, 400, 'button', this.actionOnClick, this, 2, 1, 0);
 
             button.onInputOver.add(over, this);
-        },
-        up: function() {
-            console.log('PACMAN', arguments);
-        },
-        over: function() {
-            console.log('START');
         },
         preload: function () {
 
@@ -554,6 +548,12 @@
             
             game.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
             //  Needless to say, graphics (C)opyright Namco
+        },
+        up: function() {
+            console.log('PACMAN', arguments);
+        },
+        over: function() {
+            console.log('START');
         },
         actionOnClick: function() {
             game.state.start('Game');
