@@ -533,7 +533,7 @@
 
             Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
 
-            this.button = this.add.button(game.world.centerX - 95, 400, 'button', this.actionOnClick, this, 2, 1, 0);
+            this.button = this.add.button(this.world.centerX - 95, 400, 'button', this.actionOnClick, this, 2, 1, 0);
 
             this.button.onInputOver.add(this.over, this);
             this.button.onInputUp.add(this.up, this);
