@@ -187,8 +187,6 @@
 
             // Bonus
             this.generateBonus();
-
-            this.addGameStates();
         },
 
         checkKeys: function () {
@@ -550,6 +548,9 @@
             game.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
             //  Needless to say, graphics (C)opyright Namco
         },
+        create: function() {
+
+        },
         up: function() {
             console.log('PACMAN', arguments);
         },
@@ -561,8 +562,9 @@
         }
         
     }
-    game.state.add('GameMenu', GameMenu, true);
-    game.state.add('Game', Pacman, false);
+    game.state.add('GameMenu', GameMenu);
+    game.state.add('Game', Pacman);
+    game.state.start('GameMenu')
 
     </script>
 
