@@ -537,7 +537,8 @@
 
             this.button = game.add.button(game.world.centerX - 95, 400, 'button', this.actionOnClick, this, 2, 1, 0);
 
-            this.button.onInputOver.add(over, this);
+            this.button.onInputOver.add(this.over, this);
+            this.button.onInputUp.add(this.up, this);
         },
         preload: function () {
 
