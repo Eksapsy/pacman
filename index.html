@@ -187,6 +187,8 @@
 
             // Bonus
             this.generateBonus();
+
+            this.addGameStates();
         },
 
         checkKeys: function () {
@@ -475,7 +477,49 @@
 
     };
 
-    game.state.add('Game', Pacman, true);
+    var GameMenu = function (game) {
+        
+        this.directions = [ null, null, null, null, null ];
+        this.opposites = [ Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP ];
+
+    };
+
+    GameMenu.prototype = {
+        init: function () {
+
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.scale.pageAlignHorizontally = true;
+            this.scale.pageAlignVertically = true;
+
+            Phaser.Canvas.setImageRenderingCrisp(this.game.canvas);
+
+            this.button = game.add.button(game.world.centerX - 95, 400, 'button', actionOnClick, this, 2, 1, 0);
+
+            button.onInputOver.add(over, this);
+        },
+        up: function() {
+            console.log('PACMAN', arguments);
+        },
+        over: function() {
+            console.log('START');
+        },
+        preload: function () {
+
+            //  We need this because the assets are on github pages
+            //  Remove the next 2 lines if running locally
+            this.load.baseURL = 'https://eksapsy.github.io/pacman/';
+            this.load.crossOrigin = 'anonymous';
+            
+            game.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
+            //  Needless to say, graphics (C)opyright Namco
+        },
+        actionOnClick: function() {
+            game.state.start('Game');
+        }
+        
+    }
+    game.state.add('GameMenu', GameMenu, true);
+    game.state.add('Game', Pacman, false);
 
     </script>
 
